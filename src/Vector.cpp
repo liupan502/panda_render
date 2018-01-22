@@ -1,6 +1,7 @@
 #include "Vector.h"
 #include <assert.h>
 #include <math.h>
+#include "panda_render_const.h"
 
 namespace panda_render
 {
@@ -143,6 +144,30 @@ namespace panda_render
     return (x * v.x + y * v.y + z * v.z + w * v.w);
   }
   
+  void Vector4::normalize(Vector4* dst) const
+  {
+    assert(dst);
+    if (dst != this)
+    {
+        dst->x = this->x;
+        dst->y = this->y;
+        dst->z = this->z;
+        dst->w = this->w;
+    }
 
+    float length = dst->length();
+    if (length == 1.0f || length < MATH_TOLERLANCE)
+    {
+        return;
+    }
+    float scalar = 1.0f / length;
+    dst->scale(scalar);
+  }
+
+  Vector4& Vector4::normalize()
+  {
+    normalize(this);
+    return *this;
+  }
   
 }
