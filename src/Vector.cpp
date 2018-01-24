@@ -49,6 +49,17 @@ namespace panda_render
     return value;
   }
 
+  float Vector4::angle(const Vector4 & v1, const Vector4 & v2)
+  {
+      float dx = v1.y * v2.z - v1.z * v2.y;
+      float dy = v1.z * v2.x - v1.x * v2.z;
+      float dz = v1.x * v2.y - v1.y * v2.x;
+
+      float val = sqrtf(dx * dx + dy * dy + dz * dz);
+      float dot_val = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+      return atan2f(val + MATH_FLOAT_SMALL, dot_val);
+  }
+
   bool Vector4::is_zero() const
   {
     return x == 0.0f && y == 0.0f && z == 0.0f && w == 0.0f;

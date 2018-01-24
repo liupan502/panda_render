@@ -1,6 +1,7 @@
 #include "Vector3.h"
 #include <math.h>
 #include <assert.h>
+#include "panda_render_const.h"
 
 namespace panda_render{
 
@@ -22,9 +23,25 @@ panda_render::Vector3::~Vector3()
 {
 }
 
+const Vector3 & Vector3::zero()
+{
+    // TODO: 在此处插入 return 语句
+    static Vector3 zero(0.0, 0.0, 0.0);
+    return zero;
+}
+
+const Vector3 & Vector3::one()
+{
+    // TODO: 在此处插入 return 语句
+    static Vector3 one(1.0, 1.0, 1.0);
+    return one;
+}
+
 float panda_render::Vector3::angle(const Vector3 & v1, const Vector3 & v2)
 {
-    return 0.0f;
+    Vector3 cross_vec;
+    Vector3::cross(v1, v2, &cross_vec);
+    return atan2f(cross_vec.length() + MATH_FLOAT_SMALL , v1.dot(v2));
 }
 
 void panda_render::Vector3::add(const Vector3 & v)
@@ -67,6 +84,25 @@ float panda_render::Vector3::length() const
 void panda_render::Vector3::negate()
 {
     scale(-1.0);
+}
+
+Vector3& Vector3::normalize()
+{
+    normalize(this);
+    return *this;
+}
+
+void Vector3::normalize(Vector3 * dst) const
+{
+    assert(dst);
+    dst->set(x, y, z);
+    float length = dst->length();
+    if (length < MATH_TOLERLANCE)
+    {
+        return;
+    }
+
+    dst->scale(1.0 / length);
 }
 
 void panda_render::Vector3::scale(float scalar)

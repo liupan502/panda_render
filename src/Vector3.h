@@ -41,7 +41,7 @@ namespace panda_render
 
             void negate();
 
-            Vector3* normalize();
+            Vector3& normalize();
 
             void normalize(Vector3* dst) const;
 
@@ -64,6 +64,8 @@ namespace panda_render
             Vector3& operator-=(const Vector3& v);
 
             const Vector3 operator-() const;
+
+            static float angle(const Vector3& v1, const Vector3& v2);
 
 
     };
