@@ -37,5 +37,15 @@ namespace panda_render
             const Vector2 operator-(const Vector2& v) const;
 
             Vector2& operator-=(const Vector2& v);
+
+            static float angle(const Vector2& v1, const Vector2& v2);
+
+            float length() const;
+
+            void scale(float scalar);
+
+            void normalize(Vector2* dst) const;
+
+
     };
 }

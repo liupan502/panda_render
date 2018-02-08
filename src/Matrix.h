@@ -1,6 +1,11 @@
 #pragma once
 
+
+
 namespace panda_render{
+
+    class Vector3;
+
   /*
     matrix 4*4
   */
@@ -35,6 +40,8 @@ namespace panda_render{
         static const Matrix& identity();
 
         static const Matrix& zero();
+
+        static void createLookAt(const Vector3& eyePosition, const Vector3& targetPosition, const Vector3& up, Matrix* dst);
     protected:
      
   };
