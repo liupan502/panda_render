@@ -1,4 +1,6 @@
 #include "Matrix.h"
+#include "Vector3.h"
+#include <assert.h>
 
 namespace panda_render{
     Matrix::Matrix()
@@ -26,9 +28,52 @@ namespace panda_render{
     const Matrix & Matrix::identity()
     {
         // TODO: 在此处插入 return 语句
+
     }
     const Matrix & Matrix::zero()
     {
         // TODO: 在此处插入 return 语句
+    }
+    void Matrix::createLookAt(const Vector3 & eyePosition, const Vector3 & targetPosition, const Vector3 & up, Matrix * dst)
+    {
+        assert(dst);
+
+        Vector3 up_use(up);
+        up_use.normalize();
+
+        Vector3 z_axis;
+        Vector3::subtract(eyePosition, targetPosition, &z_axis);
+        z_axis.normalize();
+
+        Vector3 x_axis;
+        Vector3::cross(up_use, z_axis, &x_axis);
+
+        Vector3 y_axis;
+        Vector3::cross(z_axis, x_axis, &y_axis);
+
+        dst->m[0] = x_axis.x;
+        dst->m[1] = y_axis.x;
+        dst->m[2] = z_axis.x;
+        dst->m[3] = 0.0;
+
+        dst->m[4] = x_axis.y;
+        dst->m[5] = y_axis.y;
+        dst->m[6] = z_axis.y;
+        dst->m[7]  = 0.0;
+
+        dst->m[8] = x_axis.z;
+        dst->m[9] = y_axis.z;
+        dst->m[10] = z_axis.z;
+        dst->m[11] = 0.0;
+
+        dst->m[12] = x_axis.dot(eyePosition);
+        dst->m[13] = y_axis.dot(eyePosition);
+        dst->m[14] = z_axis.dot(eyePosition);
+        dst->m[15] = 1.0;
+    }
+
+    void createPerspective(float fov, float ratio, float near, float far, Matrix* dst)
+    {
+        assert(dst);
     }
 }

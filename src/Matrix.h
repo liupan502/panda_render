@@ -42,6 +42,8 @@ namespace panda_render{
         static const Matrix& zero();
 
         static void createLookAt(const Vector3& eyePosition, const Vector3& targetPosition, const Vector3& up, Matrix* dst);
+    
+        static void createPerspective(float fov, float ratio, float near, float far, Matrix* dst);
     protected:
      
   };
