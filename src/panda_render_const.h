@@ -6,3 +6,5 @@
 // math
 #define MATH_DEG_TO_RAD(x)               ((x) * 0.0174532925f) 
 #define MATH_RAD_TO_DEG(x)               ((x)* 57.29577951f)
+
+#define MATRIX_SIZE        sizeof(float) * 16

@@ -1,6 +1,9 @@
 #include "Matrix.h"
 #include "Vector3.h"
 #include <assert.h>
+#include "panda_render_const.h"
+#include <math.h>
+#include <string.h>
 
 namespace panda_render{
     Matrix::Matrix()
@@ -75,5 +78,17 @@ namespace panda_render{
     void createPerspective(float fov, float ratio, float near, float far, Matrix* dst)
     {
         assert(dst);
+        assert(near != far);
+
+        float fn = 1.0 / (near - far);
+        float theta = MATH_DEG_TO_RAD(fov / 2.0);
+        float divsor = tan(theta);
+        float factor = 1.0 / divsor;
+        memset(dst, 0,MATRIX_SIZE);
+        dst->m[0] = (1.0f / ratio) * factor;
+        dst->m[5] = factor;
+        dst->m[10] = (-(far + near)) * fn;
+        dst->m[11] = -1.0f;
+        dst->m[14] = -2.0f * far * near * fn;
     }
 }
