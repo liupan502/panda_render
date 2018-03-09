@@ -5,6 +5,7 @@
 namespace panda_render{
 
     class Vector3;
+    class Vector4;
 
   /*
     matrix 4*4
@@ -44,6 +45,24 @@ namespace panda_render{
         static void createLookAt(const Vector3& eyePosition, const Vector3& targetPosition, const Vector3& up, Matrix* dst);
     
         static void createPerspective(float fov, float ratio, float near, float far, Matrix* dst);
+
+        static void createTranslation(float x, float y, float z, Matrix* dst);
+
+        static void createScale(float sx, float sy, float sz, Matrix* dst);
+
+        // angle is in degree
+        static void createRotation(const Vector3& axis, float angle, Matrix* dst);
+
+        // dst = left * right
+        static void multiply(const Matrix& left, const Matrix& right, Matrix* dst);
+
+        static void invert(const Matrix& mat, Matrix* dst);
+
+        static void transformVector4(const Matrix& mat, const Vector4& vec, Vector4* dst);
+
+        
+
+        void transformPoint(Vector3* point) const;
     protected:
      
   };
